@@ -23,7 +23,31 @@ $(document).ready(function() {
         '5 (Strongly Agree)'
     ];
 
-    console.log(questions);
+    // Identify div where questions will be inserted and initialize counter to 0.
+    var questionDiv = $('#surveyQs');
+    i = 0;
+
+    // For each question, create a div.
+    questions.forEach(function (question) {
+        i++;
+        // Fill that div with a header, the question, and the choices selector.
+        var item = $('<div class="question">');
+        var headline = $('<h4>').text('Question ' + i);
+        var questionText = $('<p>').text(question);
+        var dropDown = $('<div class="form-group">');
+        var select = $('<select class="form-control selector">');
+        // Create an option for each choice.
+        choices.forEach(function(choice) {
+            var option = $('<option>').text(choice);
+            select.append(option);
+        });
+        select.attr('id', 'select' + i);
+        // Add the dropdown to the item, then add the item to the questions div.
+        dropDown.append(select);
+        item.append(headline, questionText, dropDown);
+        var br = $('<br>');
+        questionDiv.append(item, br);
+    });
 
 });
 
