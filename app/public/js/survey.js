@@ -1,4 +1,5 @@
-var callback = function(){
+
+    
     // Qs array
     var questions = [
         "I like to go out rather than stay in.",
@@ -22,20 +23,10 @@ var callback = function(){
         '5 (Strongly Agree)'
     ];
 
+    console.log(questions);
 
 
 
 
 
 
-
-  };
-  
-  if (
-      document.readyState === "complete" ||
-      (document.readyState !== "loading" && !document.documentElement.doScroll)
-  ) {
-    callback();
-  } else {
-    document.addEventListener("DOMContentLoaded", callback);
-  }
