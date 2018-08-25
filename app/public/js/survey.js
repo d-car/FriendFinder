@@ -1,4 +1,4 @@
-
+$(document).ready(function() {
     
     // Qs array
     var questions = [
@@ -24,6 +24,8 @@
     ];
 
     console.log(questions);
+
+});
 
 
 

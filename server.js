@@ -10,6 +10,7 @@ var PORT = process.env.PORT || 3030;
 // Handle Parsing
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/app/public'));
 
 // Routes
 require("./app/routing/apiRoutes")(app);
