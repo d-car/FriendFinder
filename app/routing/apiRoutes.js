@@ -28,27 +28,27 @@ module.exports = function(app) {
                 differences.push(totalDifference);
             });
 
-            // Find the minimum difference score.
+            // Find the min dif
             var minimumDifference = Math.min.apply(null, differences);
 
-            // Since there may be more than one potential friend with that score, create an array.
+            // Create array to catch all.
             var bestMatches = [];
 
-            // For each item in differences, if it is equal to the minimumDifference, add the corresponding friends to the bestMatches array.
+            //if equal to min dif push into array
             for (var i = 0; i < differences.length; i++) {
                 if (differences[i] === minimumDifference) {
                     bestMatches.push(friends[i]);
                 }
             }
 
-            // Then send bestMatches to the client.
+            // Then send bestMatches to the client
             res.json(bestMatches);
-        // If there is only one friend to compare to, skip all that work and just send back that friend.
+        // return only friend if just one value
         } else {
             res.json(friends);
         }
 
-        // Once you're done comparing, add the new user to the potential friends data.
+        // Once you're done comparing, add the new user to the potential friends data
         friends.push(thisUser);
 
     });

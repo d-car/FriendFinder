@@ -89,31 +89,31 @@ $(document).ready(function() {
                     $('#userName').val('');
                     $('#imageLink').val('');
 
-                    // The results are in array form. For each object, grab the name and URL.
+                    // results array, grab name and pic
                     data.forEach(function(profile) {
                         var profileDiv = $('<div class="profile">');
                         var name = profile.name;
                         var photoURL = profile.profilePic;
                         // Put the name in a header.
                         var nameHeader = $('<h3>').text(name);
-                        // Add a photo with an 'src' of the photoURL submitted.
+                        // add src attribute
                         var photo = $('<img>').attr('src', photoURL);
                         profileDiv.append(nameHeader, photo);
 
-                        // Add these items to the modal.
+                        // Add these items to the modal
                         $('.modal-body').append(profileDiv);
                     });
 
                     // If there is a tie for the best match and so you have more than one,
                     if (data.length > 1) {
-                        // Make sure the header is plural.
+                        // grammar fixes, my mother would have a fit
                         $('.modal-title').text('Your best matches!');
                     } else {
-                        // Make sure the header is singular.
+                        // more grammar
                         $('.modal-title').text('Your best match!');
                     }
 
-                    // Display the result modal.
+                    // Display the result modal
                     $('#resultModal').modal();
                 }
             });
