@@ -1,7 +1,7 @@
 ## FriendFinder ##
 
 # Get Started
-Follow this link to use the app: LINK GOES HERE
+Follow this link to use the app: https://nubc-friend-finder-dc.herokuapp.com/
 
 # Prerequisites
 - Node.js
