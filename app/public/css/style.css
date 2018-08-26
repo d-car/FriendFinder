@@ -1,0 +1,20 @@
+body {
+    background-image: url("../images/background.jpg");
+}
+
+.jumbotron {
+    background-color: purple;
+    color: white;
+    border-radius: 25px;
+    margin-top: 25px;
+
+}
+
+#friendPic {
+    border-radius: 25px;
+}
+
+h1, h2, h3, h4, p, a {
+    color: white;
+}
+

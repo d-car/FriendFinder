@@ -3,15 +3,15 @@ $(document).ready(function() {
     // Qs array
     var questions = [
         "I like to go out rather than stay in.",
-        "I like to read books over watching tv or movies",
-        "I like dogs more than cats",
-        "I am a picky eater",
-        "I like winter over summer",
-        "I like to travel",
+        "I like to read books over watching tv or movies.",
+        "I like dogs more than cats.",
+        "I am a picky eater.",
+        "I like winter over summer.",
+        "I like to travel.",
         "I enjoy cooking for myself and others.",
         "I would rather live in a small town than a big cty.",
-        "I enjoy working out",
-        "I like to drink"
+        "I enjoy working out.",
+        "I like to drink."
     ];
 
     // Answer choices
@@ -47,6 +47,84 @@ $(document).ready(function() {
         item.append(headline, questionText, dropDown);
         var br = $('<br>');
         questionDiv.append(item, br);
+    });
+
+    // Event handler for when the form is submitted.
+    $('#submit').on('click', function(event) {
+
+        // Prevent reload.
+        event.preventDefault();
+
+        // Capture username and image link values.
+        var userName = $('#userName').val();
+        var imageLink = $('#imageLink').val();
+
+        // If both of those items were filled out, gather other answers and submit.
+        if (userName.length > 0 && imageLink.length >0) {
+            var answers = [];
+
+            // Add the response for each selector to the array of answers.
+            Object.keys($('.selector')).forEach(function(key) {
+                if (answers.length < questions.length) {
+                    // Take only the first character of the answer, which is the number.
+                    answers.push($('.selector')[key].value.charAt(0));
+                }
+            });
+
+            // Data into object
+            var surveyData = {
+                name: userName,
+                photo: imageLink,
+                answers: answers
+            };
+
+            // POST data to route
+            $.post('/api/friends', surveyData, function(data) {
+
+                // display result
+                if (data) {
+
+                    // Empty out modal and username and link fields.
+                    $('.modal-body').empty();
+                    $('#userName').val('');
+                    $('#imageLink').val('');
+
+                    // The results are in array form. For each object, grab the name and URL.
+                    data.forEach(function(profile) {
+                        var profileDiv = $('<div class="profile">');
+                        var name = profile.name;
+                        var photoURL = profile.profilePic;
+                        // Put the name in a header.
+                        var nameHeader = $('<h3>').text(name);
+                        // Add a photo with an 'src' of the photoURL submitted.
+                        var photo = $('<img>').attr('src', photoURL);
+                        profileDiv.append(nameHeader, photo);
+
+                        // Add these items to the modal.
+                        $('.modal-body').append(profileDiv);
+                    });
+
+                    // If there is a tie for the best match and so you have more than one,
+                    if (data.length > 1) {
+                        // Make sure the header is plural.
+                        $('.modal-title').text('Your best matches!');
+                    } else {
+                        // Make sure the header is singular.
+                        $('.modal-title').text('Your best match!');
+                    }
+
+                    // Display the result modal.
+                    $('#resultModal').modal();
+                }
+            });
+        // If either name or URL is missing, show the error modal.
+        } else {
+            $('#errorModal').modal();
+            // The error modal can be dismissed but it will also disappear after 3 seconds.
+            setTimeout(function() {
+                $('#errorModal').modal('hide');
+            }, 3000);
+        }
     });
 
 });
